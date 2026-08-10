@@ -18,13 +18,7 @@ const addNewPizza = (pizza) => {
     menu.push(pizza)
 }
 
-let newPizza = {
-    name: "pineapple pizza"
-}
-
-addNewPizza(newPizza)
-
-console.log(menu)
+let nextOrderId = 0;
 
 /**
  * Write another utility function, placeOrder, that takes a pizza name parameter and:
@@ -35,12 +29,42 @@ console.log(menu)
  * 4. returns the new order object (just in case we need it later)
  */
 
-const placeOrder = (pizzaName) => {
+const placeOrder = (pizzaName:string) => {
     let selectedPizza = menu.find(p => p.name == pizzaName)
     cashInRegister += selectedPizza.price;
     let orderObj = {
-        pizza: selectedPizza, status: "ordered"
+        orderId: nextOrderId++,
+        pizza: selectedPizza, 
+        status: "ordered"
     }
     orderQueue.push(orderObj)
     return orderObj;
 }
+
+function completeOrder(orderId){
+    const Order = orderQueue.find(q => q.id == orderQueue)
+    return Order;
+}
+
+addNewPizza({ 
+    name: "Hotdog Pizza",
+    price: 34
+})
+
+addNewPizza({ 
+    name: "Orange Pizza",
+    price: 25
+})
+
+addNewPizza({ 
+    name: "Milky Pizza",
+    price: 67
+})
+
+placeOrder( "Pepperoni" )
+placeOrder( "Milky Pizza" )
+completeOrder('1')
+
+console.log("Menu: ", menu)
+console.log("Cash in register: ", cashInRegister)
+console.log("Order Queue: ", orderQueue)
