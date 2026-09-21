@@ -1,1 +1,0 @@
-const animal = "Lone Wolf";
