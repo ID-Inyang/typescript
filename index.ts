@@ -1,77 +1,24 @@
-type Pizza = {
+type User = {
     id: number
-    name: string
-    price: number
+    username: string
+    role: "member" | "contributor" | "admin"
 }
 
-type Order = {
-    id: number
-    pizza: Pizza
-    status: "ordered" | "completed"
+const users: User[] = [
+    { id: 1, username: "john_doe", role: "member" },
+    { id: 2, username: "jane_smith", role: "contributor" },
+    { id: 3, username: "alice_jones", role: "admin" },
+    { id: 4, username: "charlie_brown", role: "member" },
+];
+
+function updateUser(id: number, updates: any) {
+    // Find the user in the array by the id
+    // Use Object.assign to update the found user in place. 
+    // Check MDN if you need help with using Object.assign
 }
 
-const menu: Pizza[] = [
-    { id: 1, name: "Margherita", price: 8 },
-    { id: 2, name: "Pepperoni", price: 10 },
-    { id: 3, name: "Hawaiian", price: 10 },
-    { id: 4, name: "Veggie", price: 9 },
-]
+// Example updates:
+updateUser(1, { username: "new_john_doe" });
+updateUser(4, { role: "contributor" });
 
-let cashInRegister = 100
-let nextOrderId = 1
-const orderQueue: Order[] = []
-
-function addNewPizza(pizzaObj: Pizza): void {
-    menu.push(pizzaObj)
-}
-
-/**
- * Challenge: add explicit return types to the rest of our functions
- */
-
-function placeOrder(pizzaName: string): Order | undefined {
-    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
-    if (!selectedPizza) {
-        console.error(`${pizzaName} does not exist in the menu`)
-        return
-    }
-    cashInRegister += selectedPizza.price
-    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
-    orderQueue.push(newOrder)
-    return newOrder
-}
-
-function completeOrder(orderId: number): Order | undefined {
-    const order = orderQueue.find(order => order.id === orderId)
-    if (!order) {
-        console.error(`${orderId} was not found in the orderQueue`)
-        return
-    }
-    order.status = "completed"
-    return order
-}
-
-export function getPizzaDetail(identifier: string | number): Pizza | undefined {
-    if (typeof identifier === "string") {
-        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
-    } else if (typeof identifier === "number") {
-        return menu.find(pizza => pizza.id === identifier)
-    } else {
-        throw new TypeError("Parameter `identifier` must be either a string or a number")
-    }
-}
-
-// addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 })
-// addNewPizza({ id: 6, name: "BBQ Chicken", price: 12 })
-// addNewPizza({ id: 7, name: "Spicy Sausage", price: 11 })
-
-// placeOrder("Chicken Bacon Ranch")
-// placeOrder("Pepperoni")
-// completeOrder(1)
-// placeOrder("Anchovy")
-// placeOrder("Veggie")
-// completeOrder(2)
-
-// console.log("Menu:", menu)
-// console.log("Cash in register:", cashInRegister)
-// console.log("Order queue:", orderQueue)
+console.log(users)
